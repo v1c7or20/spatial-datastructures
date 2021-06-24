@@ -53,7 +53,21 @@ std::shared_ptr<Node> QuadTree<Node, Rectangle, Point>::search(Point target){
 
 template<typename Node, typename Rectangle, typename Point>
 std::vector<Point> QuadTree<Node, Rectangle, Point>::range(Rectangle region){
-    //TODO
+    const int x=0, y=1;
+
+    std::vector<Node> nodes;
+    for (int i = region._min.get(x); i <= region._max.get(x); ++i) {
+        for (int j = region._min.get(y); j <= region._max.get(x); ++j) {
+            Point p = {i,j};
+            Node looked = search(p);
+            if (std::find(nodes.begin(),nodes.end(), looked) == nodes.end()){
+                nodes.push_back(looked);
+            }
+        }
+    }
+    for (int i = 0; i < nodes.size(); ++i) {
+        if ()
+    }
     return std::vector<Point>();
 }
 
