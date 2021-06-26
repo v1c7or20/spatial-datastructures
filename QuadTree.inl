@@ -109,42 +109,21 @@ std::vector<Point> QuadTree<Node, Rectangle, Point>::range(Rectangle region, std
     if (in_quadrant(region, current_point)){
         result.push_back(current_point);
     }
-/*
-    if(reg_max.get(x) < current_point.get(x)){
-        if (node->NE() != nullptr)
-            range(region, node->NE(), result);
-        if (node->SE() != nullptr)
-            range(region, node->SE(), result);
-    }
-    if(reg_min.get(x) > current_point.get(x)){
-        if (node->NW() != nullptr)
-            range(region, node->NW(), result);
-        if (node->SW() != nullptr)
-            range(region, node->SW(), result);
-    }
-    if(reg_max.get(y) < current_point.get(y)){
-        if (node->NE() != nullptr)
-            range(region, node->NE(), result);
-        if (node->NW() != nullptr)
-            range(region, node->NW(), result);
-    }
-    if(reg_min.get(y) > current_point.get(y)){
-        if (node->SE() != nullptr)
-            range(region, node->SE(), result);
-        if (node->SW() != nullptr)
-            range(region, node->SW(), result);
-    }
-*/
+
     if (node->NW() != nullptr){
+        if(reg_min.get(x) <= current_point.get(x) and reg_max.get(y) >= current_point.get(y))
             range(region, node->NW(), result);
     }
     if (node->SW() != nullptr){
+        if(reg_min.get(x) <= current_point.get(x) and reg_min.get(y) <= current_point.get(y))
             range(region, node->SW(), result);
     }
     if (node->NE() != nullptr){
+        if(reg_max.get(x) >= current_point.get(x) and reg_max.get(y) >= current_point.get(y))
             range(region, node->NE(), result);
     }
     if (node->SE() != nullptr){
+        if(reg_max.get(x) >= current_point.get(x) and reg_min.get(y) <= current_point.get(y))
             range(region, node->SE(), result);
     }
 
