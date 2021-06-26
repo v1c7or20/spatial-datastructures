@@ -25,9 +25,13 @@ private:
 
 public:
     QuadTree();
+    bool in_quadrant(Rectangle region, Point p); 
+    bool in_region(Rectangle region, std::shared_ptr<Node>& node_father, std::shared_ptr<Node>& node_son);
     void insert(Point new_point) override;
     std::shared_ptr<Node> search(Point target) override;
     std::vector<Point> range(Rectangle region) override;
+    /* Funcion de apoyo para insertar en el array de manera recursiva */
+    std::vector<Point> range(Rectangle region, std::shared_ptr<Node>& node, std::vector<Point> & answer) ;
     Point nearest_neighbor(Point reference_point) override;
 };
 

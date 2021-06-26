@@ -98,8 +98,12 @@ TEST_P(QuadTreeParamTest, randomRangeTest) {
   const std::size_t min=0, max=1000;
 
   std::vector<point_t> points;
-  for(std::size_t I=0;I<num_points;I++)
-    points.push_back(point_t({genRandomNumber<int>(min, max), genRandomNumber<int>(min, max)}));
+  for(std::size_t I=0;I<num_points;I++){
+    point_t new_point = point_t({genRandomNumber<int>(min, max), genRandomNumber<int>(min, max)});
+    if(std::find(points.begin(), points.end(), new_point) == points.end()){
+      points.push_back(new_point);
+    }
+  }
 
   for(auto& p : points){
     tree.insert(p);
