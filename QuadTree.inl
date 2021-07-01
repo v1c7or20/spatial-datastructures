@@ -52,9 +52,40 @@ std::shared_ptr<Node> QuadTree<Node, Rectangle, Point>::search(Point target){
 }
 
 template<typename Node, typename Rectangle, typename Point>
+void QuadTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<Node>& node, std::vector<Point>& result){
+    if(node == nullptr){
+        return;
+    }
+
+    auto cur_point = node->get_point();
+
+    if(region.contains(cur_point)){
+        result.push_back(cur_point);
+    }
+
+    const int x=0, y=1;
+
+    /*range(region, node->NW(), result);
+    range(region, node->SW(), result);
+    range(region, node->NE(), result);
+    range(region, node->SE(), result);*/
+
+    if(region._min.get(x) <= cur_point.get(x) && region._max.get(y) > cur_point.get(y))
+        range(region, node->NW(), result);
+    if(region._min.get(x) <= cur_point.get(x) && region._min.get(y) < cur_point.get(y))
+        range(region, node->SW(), result);
+    if(region._max.get(x) > cur_point.get(x) && region._max.get(y) >= cur_point.get(y))
+        range(region, node->NE(), result);
+    if(region._max.get(x) > cur_point.get(x) && region._min.get(y) <= cur_point.get(y))
+        range(region, node->SE(), result);
+}
+
+template<typename Node, typename Rectangle, typename Point>
 std::vector<Point> QuadTree<Node, Rectangle, Point>::range(Rectangle region){
-    //TODO
-    return std::vector<Point>();
+    std::vector<Point> result;
+    range(region, this->root, result);
+
+    return result;
 }
 
 template<typename Node, typename Rectangle, typename Point>
