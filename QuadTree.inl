@@ -57,6 +57,8 @@ void QuadTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<N
         return;
     }
 
+    numero_accesos++;
+
     auto cur_point = node->get_point();
 
     if(region.contains(cur_point)){
@@ -83,8 +85,9 @@ void QuadTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<N
 template<typename Node, typename Rectangle, typename Point>
 std::vector<Point> QuadTree<Node, Rectangle, Point>::range(Rectangle region){
     std::vector<Point> result;
+    numero_accesos=0;
     range(region, this->root, result);
-
+    std::cout<<"Número de accesos: "<<numero_accesos<<"\n";
     return result;
 }
 

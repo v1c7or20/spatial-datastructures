@@ -8,10 +8,10 @@ namespace spatial
 {
 
 /**
- * Point QuadTree implementation
+ * KDTree implementation
  */
 template<typename Node, typename Rectangle, typename Point>
-class QuadTree : public SpatialTreeBase<Node, Rectangle, Point>{
+class KDTree : public SpatialTreeBase<Node, Rectangle, Point>{
 private:
     /**
      * Función recursiva de búsqueda.
@@ -21,12 +21,12 @@ private:
      *
      * @return Retorna referencia al Nodo que contiene o podría contener el punto buscado
      */
-    std::shared_ptr<Node>& search(Point target, std::shared_ptr<Node>& node);
+    std::shared_ptr<Node>& search(Point target, std::shared_ptr<Node>& node, bool level);
     void range(Rectangle region, std::shared_ptr<Node>& node, std::vector<Point>& result);
     std::size_t numero_accesos;
 
 public:
-    QuadTree();
+    KDTree();
     void insert(Point new_point) override;
     std::shared_ptr<Node> search(Point target) override;
     std::vector<Point> range(Rectangle region) override;
@@ -36,4 +36,4 @@ public:
 } //spatial
 } //utec
 
-#include "QuadTree.inl"
+#include "KDTree.inl"
