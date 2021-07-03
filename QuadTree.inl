@@ -67,11 +67,6 @@ void QuadTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<N
 
     const int x=0, y=1;
 
-    /*range(region, node->NW(), result);
-    range(region, node->SW(), result);
-    range(region, node->NE(), result);
-    range(region, node->SE(), result);*/
-
     if(region._min.get(x) <= cur_point.get(x) && region._max.get(y) > cur_point.get(y))
         range(region, node->NW(), result);
     if(region._min.get(x) <= cur_point.get(x) && region._min.get(y) < cur_point.get(y))

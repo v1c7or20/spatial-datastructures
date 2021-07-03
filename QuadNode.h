@@ -7,11 +7,11 @@ namespace utec
 namespace spatial
 {
 
-template<typename QuadPoint>
+template<typename Point>
 class QuadNode{
 public:
-    QuadNode(QuadPoint new_point):_p(new_point){}
-    QuadPoint get_point() {return this->_p;}
+    QuadNode(Point new_point):_p(new_point){}
+    Point get_point() {return this->_p;}
 
     std::shared_ptr<QuadNode>& NW() {return this->_NW;};
     std::shared_ptr<QuadNode>& NE() {return this->_NE;};
@@ -19,7 +19,7 @@ public:
     std::shared_ptr<QuadNode>& SE() {return this->_SE;};
 
 private:
-    QuadPoint _p;
+    Point _p;
     std::shared_ptr<QuadNode> _NW;
     std::shared_ptr<QuadNode> _NE;
     std::shared_ptr<QuadNode> _SW;

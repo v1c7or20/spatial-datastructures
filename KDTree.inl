@@ -58,24 +58,22 @@ std::shared_ptr<Node> KDTree<Node, Rectangle, Point>::search(Point target){
 
 template<typename Node, typename Rectangle, typename Point>
 void KDTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<Node>& node, std::vector<Point>& result){
-    // if(node == nullptr){
-    //     return;
-    // }
+    if(node == nullptr){
+        return;
+    }
 
-    // numero_accesos++;
+    numero_accesos++;
 
-    // auto cur_point = node->get_point();
+    auto cur_point = node->get_point();
 
-    // if(region.contains(cur_point)){
-    //     result.push_back(cur_point);
-    // }
+    if(region.contains(cur_point)){
+        result.push_back(cur_point);
+    }
 
-    // const int x=0, y=1;
+    const int x=0, y=1;
 
-    // /*range(region, node->NW(), result);
-    // range(region, node->SW(), result);
-    // range(region, node->NE(), result);
-    // range(region, node->SE(), result);*/
+    range(region, node->left(), result);
+    range(region, node->right(), result);
 
     // if(region._min.get(x) <= cur_point.get(x) && region._max.get(y) > cur_point.get(y))
     //     range(region, node->NW(), result);
@@ -90,9 +88,9 @@ void KDTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<Nod
 template<typename Node, typename Rectangle, typename Point>
 std::vector<Point> KDTree<Node, Rectangle, Point>::range(Rectangle region){
     std::vector<Point> result;
-    // numero_accesos=0;
-    // range(region, this->root, result);
-    // std::cout<<"Número de accesos: "<<numero_accesos<<"\n";
+    numero_accesos=0;
+    range(region, this->root, result);
+    std::cout<<"Número de accesos: "<<numero_accesos<<"\n";
     return result;
 }
 
