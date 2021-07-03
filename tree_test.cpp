@@ -19,68 +19,57 @@ using data_t = int;
 using point_t = Point<data_t, 2>;
 
 template <typename TypeTree>
-class QuadTreeTest : public ::testing::Test {
+class SpatialTreeTest : public ::testing::Test {
   protected:
-    //QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t> tree;
-    //KDTree<KDNode<point_t>, Rectangle<point_t>, point_t> tree;
     TypeTree tree;
 };
 
 using SpatialTypes = ::testing::Types<QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t>,
                                       KDTree<KDNode<point_t>, Rectangle<point_t>, point_t>>;
 
-TYPED_TEST_SUITE(QuadTreeTest, SpatialTypes);
+TYPED_TEST_SUITE(SpatialTreeTest, SpatialTypes);
 
-TYPED_TEST(QuadTreeTest, emptyPointList) {
+TYPED_TEST(SpatialTreeTest, emptyPointList) {
   point_t point = {{30, 40}};
-  auto node = tree.search(point);
+  auto node = this->tree.search(point);
   EXPECT_EQ(node, nullptr);
 }
 
-TYPED_TEST(QuadTreeTest, insertOneElement) {
+TYPED_TEST(SpatialTreeTest, insertOneElement) {
   point_t point = {{30, 40}};
-  tree.insert(point);
+  this->tree.insert(point);
 
-  auto node = tree.search(point);
+  auto node = this->tree.search(point);
   ASSERT_TRUE(node != nullptr);
   EXPECT_EQ(node->get_point(), point);
 }
 
-TYPED_TEST(QuadTreeTest, insertSeveralElement) {
+TYPED_TEST(SpatialTreeTest, insertSeveralElement) {
   std::vector<point_t> points = {{{30, 40}}, {{5, 25}}, {{10, 12}}, {{70,70}}, {{50, 30}}, {{35, 45}}};
 
   for(auto& p : points){
-    tree.insert(p);
-    auto node = tree.search(p);
+    this->tree.insert(p);
+    auto node = this->tree.search(p);
 
     ASSERT_TRUE(node != nullptr);
     EXPECT_EQ(node->get_point(), p);
   }
 }
 
-TYPED_TEST(QuadTreeTest, simpleRangeTest) {
+TYPED_TEST(SpatialTreeTest, simpleRangeTest) {
   std::vector<point_t> points = {{{5, 0}}, {{6, 9}}, {{9, 3}}, {{6, 5}}, {{7, 7}}, {{8, 6}}};
 
   Rectangle<point_t> region({{8, 2}}, {{10, 4}});
 
   for(auto& p : points){
-    tree.insert(p);
+    this->tree.insert(p);
   }
 
-  auto result = tree.range(region);
+  auto result = this->tree.range(region);
 
   ASSERT_EQ(result.size(), 1);
   EXPECT_EQ(result[0], point_t({9, 3}));
 }
-
-REGISTER_TYPED_TEST_SUITE_P(
-    QuadTreeTest,  // The first argument is the test case name.
-    // The rest of the arguments are the test names.
-    emptyPointList, insertOneElement, insertSeveralElement, simpleRangeTest);
-
-INSTANTIATE_TYPED_TEST_SUITE_P(TreeTests,    // Instance name
-                               QuadTreeTest,             // Test case name
-                               SpatialTypes);  // Type list
 
 template <typename T>
 T genRandomNumber(T startRange, T endRange)

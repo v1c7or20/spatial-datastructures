@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+cmake_policy(SET CMP0048 OLD)
 project(spatial_implementation)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -9,15 +10,20 @@ endif ()
 
 include_directories(${gtest_SOURCE_DIR}/include ${gmock_SOURCE_DIR}/include)
 
-# enable_testing()
+enable_testing()
 
 add_executable(
-  quad_test
-  quad_test.cpp
+  tree_test
+  tree_test.cpp
+)
+
+add_test(
+  NAME tree_test
+  COMMAND tree_test
 )
 
 target_link_libraries(
-  quad_test
+  tree_test
   gtest_main
   gtest
   gmock
