@@ -57,7 +57,7 @@ std::shared_ptr<Node> KDTree<Node, Rectangle, Point>::search(Point target){
 }
 
 template<typename Node, typename Rectangle, typename Point>
-void KDTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<Node>& node, std::vector<Point>& result){
+void KDTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<Node>& node, std::vector<Point>& result, bool level){
     if(node == nullptr){
         return;
     }
@@ -72,17 +72,17 @@ void KDTree<Node, Rectangle, Point>::range(Rectangle region, std::shared_ptr<Nod
 
     const int x=0, y=1;
 
-    range(region, node->left(), result);
-    range(region, node->right(), result);
-
-    // if(region._min.get(x) <= cur_point.get(x) && region._max.get(y) > cur_point.get(y))
-    //     range(region, node->NW(), result);
-    // if(region._min.get(x) <= cur_point.get(x) && region._min.get(y) < cur_point.get(y))
-    //     range(region, node->SW(), result);
-    // if(region._max.get(x) > cur_point.get(x) && region._max.get(y) >= cur_point.get(y))
-    //     range(region, node->NE(), result);
-    // if(region._max.get(x) > cur_point.get(x) && region._min.get(y) <= cur_point.get(y))
-    //     range(region, node->SE(), result);
+    if(!level) { // x
+        if (region._max.get(x) >= cur_point.get(x))
+            range(region, node->right(), result, !level);
+        if (region._min.get(x) < cur_point.get(x))
+            range(region, node->left(), result, !level);
+    } else { // y
+        if (region._max.get(y) >= cur_point.get(y))
+            range(region, node->right(), result, !level);
+        if (region._min.get(y) < cur_point.get(y))
+            range(region, node->left(), result, !level);
+    }
 }
 
 template<typename Node, typename Rectangle, typename Point>

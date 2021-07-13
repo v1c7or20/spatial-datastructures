@@ -97,7 +97,8 @@ class QuadTreeParamTest : public ::testing::TestWithParam<std::size_t> {
   protected:
     using data_t = int;
     using point_t = Point<data_t, 2>;
-    QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t> tree;
+    //QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t> tree;
+    KDTree<KDNode<point_t>, Rectangle<point_t>, point_t> tree;
 
     bgi::rtree<value, bgi::linear<16, 4>> rtree;
 };
