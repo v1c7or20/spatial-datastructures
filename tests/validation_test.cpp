@@ -80,7 +80,7 @@ TEST_P(QuadTreeParamTest, randomRangeTest) {
 INSTANTIATE_TEST_CASE_P(
         TreePointsParam,
         QuadTreeParamTest,
-        ::testing::Values( 10, 100, 1000, 10000));
+        ::testing::Values(10, 100, 1000, 10000));
 
 int main(int argc, char **argv) {
   srand((unsigned)time(0));

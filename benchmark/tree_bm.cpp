@@ -24,7 +24,7 @@ void BM_tree(benchmark::State& state)
 {
   TypeTree tree;
 
-  const std::size_t num_points = 1000;
+  const std::size_t num_points=state.range(0);
   const std::size_t min=0, max=1000;
   auto cmp = [](point_t a, point_t b) {
     const int x=0, y=1;
@@ -47,7 +47,7 @@ void BM_tree(benchmark::State& state)
   }
 }
 
-BENCHMARK_TEMPLATE(BM_tree, QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t>);
-BENCHMARK_TEMPLATE(BM_tree, KDTree<KDNode<point_t>, Rectangle<point_t>, point_t>);
+BENCHMARK_TEMPLATE(BM_tree, QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t>)->Range(1 << 10, 1 << 17);
+BENCHMARK_TEMPLATE(BM_tree, KDTree<KDNode<point_t>, Rectangle<point_t>, point_t>)->Range(1 << 10, 1 << 17);
 
 BENCHMARK_MAIN();
