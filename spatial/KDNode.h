@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Point.h"
+#include <memory>
 
 namespace utec
 {

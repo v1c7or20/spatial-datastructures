@@ -4,7 +4,6 @@ namespace utec
 {
 namespace spatial
 {
-
 template<typename Node, typename Rectangle, typename Point>
 class SpatialTreeBase{
 public:

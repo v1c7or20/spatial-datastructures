@@ -82,7 +82,8 @@ std::vector<Point> QuadTree<Node, Rectangle, Point>::range(Rectangle region){
     std::vector<Point> result;
     numero_accesos=0;
     range(region, this->root, result);
-    std::cout<<"Número de accesos: "<<numero_accesos<<"\n";
+    //TODO: Refactor
+    //std::cout<<"Número de accesos: "<<numero_accesos<<"\n";
     return result;
 }
 
