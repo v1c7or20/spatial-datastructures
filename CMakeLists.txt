@@ -1,30 +1,17 @@
-cmake_minimum_required(VERSION 2.8)
-cmake_policy(SET CMP0048 OLD)
-project(spatial_implementation)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_POLICY(SET CMP0048 OLD)
+PROJECT(spatial_implementation)
 
-set(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 14)
 
-if (NOT TARGET gtest_main)
-    add_subdirectory(googletest)
-endif ()
+# Google Benchmark
+SET(BENCHMARK_ENABLE_TESTING OFF)
+SET(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
+INCLUDE(cmake/ConfigGBench.cmake)
+INCLUDE(cmake/ConfigGTest.cmake)
 
-include_directories(${gtest_SOURCE_DIR}/include ${gmock_SOURCE_DIR}/include)
+ENABLE_TESTING()
 
-enable_testing()
-
-add_executable(
-  tree_test
-  tree_test.cpp
-)
-
-add_test(
-  NAME tree_test
-  COMMAND tree_test
-)
-
-target_link_libraries(
-  tree_test
-  gtest_main
-  gtest
-  gmock
-)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/spatial/)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/tests/)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/benchmark/)
