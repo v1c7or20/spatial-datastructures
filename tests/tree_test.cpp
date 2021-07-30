@@ -6,6 +6,8 @@
 #include "QuadTree.h"
 #include "KDTree.h"
 #include "KDNode.h"
+#include "RTree.h"
+#include "RNode.h"
 
 using namespace utec::spatial;
 
@@ -20,6 +22,7 @@ class SpatialTreeTest : public ::testing::Test {
 
 using SpatialTypes = ::testing::Types<QuadTree<QuadNode<point_t>, Rectangle<point_t>, point_t>,
                                       KDTree<KDNode<point_t>, Rectangle<point_t>, point_t>>;
+//                                      RTree<RNode<point_t>, Rectangle<point_t>, point_t>>;
 
 TYPED_TEST_SUITE(SpatialTreeTest, SpatialTypes);
 
@@ -66,8 +69,6 @@ TYPED_TEST(SpatialTreeTest, simpleRangeTest) {
 }
 
 int main(int argc, char **argv) {
-  srand((unsigned)time(0));
-
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

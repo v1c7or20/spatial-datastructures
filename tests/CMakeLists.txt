@@ -10,6 +10,10 @@ ConfigureTest(tree_test
   tree_test.cpp
 )
 
+ConfigureTest(rtree_test
+  rtree_test.cpp
+)
+
 ConfigureTest(validation_test
   validation_test.cpp
 )
